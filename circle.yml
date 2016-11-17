@@ -17,6 +17,7 @@ test:
   post:
     - yardoc lib -o docs
     - cp -rf docs/ $CIRCLE_ARTIFACTS
+    - tar cfvz ${CIRCLE_PROJECT_REPONAME}.tar.gz docs/ && cp ${CIRCLE_PROJECT_REPONAME}.tar.gz $CIRCLE_ARTIFACTS
     
 deployment:
   maven:
