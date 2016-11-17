@@ -6,10 +6,14 @@ machine:
 checkout:
   post:
     - aws s3 cp s3://gs2-repos/python/publish/${PUBLISH_VERSION}/publish-${PUBLISH_VERSION}.tar.gz ~/ && tar -zxvf ~/publish-${PUBLISH_VERSION}.tar.gz -C ~/
+    - gem install yardoc
 
 test:
   override:
     - echo "test"
+  post:
+    - yardoc lib -o docs
+    - cp -rf docs/ $CIRCLE_ARTIFACTS
     
 deployment:
   maven:
